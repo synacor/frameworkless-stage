@@ -1,0 +1,15 @@
+{
+  "name": "frameworkless-stage",
+  "version": "0.0.1",
+  "authors": [
+    "Synacor"
+  ],
+  "description": "A stage module to be used in frameworkless apps.",
+  "main": "dist/stage.js",
+  "keywords": [
+    "stage",
+    "ui",
+    "common"
+  ],
+  "license": "Proprietary"
+}
