@@ -20,7 +20,31 @@ module.exports = function(grunt) {
 			demo: {
 				expand: true,
 				cwd: 'src/',
-				src: '**',
+				src: '*.js',
+				dest: 'demo/js/lib/'
+			},
+			style: {
+				files: [
+					{
+						expand: true,
+						cwd: 'src/css',
+						src: '*.css',
+						dest: 'demo/css/'
+					},
+					{
+						expand: true,
+						cwd: 'src/css',
+						src: '*.css',
+						dest: 'dist/css/'
+					}
+				]
+				
+			},
+			bower: {
+				expand: true,
+				flatten: true,
+				cwd: 'bower_components',
+				src: ['**/*.js', '!**/*.min.js'],
 				dest: 'demo/js/lib/'
 			}
 		},
@@ -32,28 +56,54 @@ module.exports = function(grunt) {
 			main: ['src/**/*.js']
 		},
 		
+		less: {
+			main: {
+				options: {
+					compress: false,
+					yuicompress: false,
+					optimization: 0
+				},
+				files: {
+					'src/css/stage.css' : 'src/less/stage.less'
+				}
+			}
+		},
+		
 		jsdoc: {
 			main: {
-				src: ['src/*.js', 'README.md'],
+				src: [
+					'src/*.js',
+					'README.md'
+				],
 				jsdoc: './node_modules/.bin/jsdoc',
 				dest: 'docs',
 				options: {
 					configure: 'jsdoc.json'
 				}
 			}
+		},
+		watch: {
+			options: {
+				debounceDelay: 1000
+			},
+			src: {
+				files: ['src/**/*'],
+				tasks: ['default']
+			}
 		}
+		
 	});
 	
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-jsdoc');
+	require('load-grunt-tasks')(grunt);
+	
+	grunt.registerTask('build-watch', ['default', 'watch:src']);
 
 	grunt.registerTask('default', [
 		'jshint:main',
 		'copy:main',
 		'uglify:main',
 		'copy:demo',
-		'jsdoc:main'
+		'less:main',
+		'copy:style'
 	]);
 };

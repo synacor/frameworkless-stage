@@ -11,5 +11,11 @@
     "ui",
     "common"
   ],
-  "license": "Proprietary"
+  "license": "Proprietary",
+  "devDependencies": {
+    "frameworkless": "https://stash.corp.synacor.com/scm/apla/frameworkless.git#~0.2.2"
+  },
+  "dependencies": {
+    "frameworkless-views": "https://stash.corp.synacor.com/scm/apla/frameworkless-views.git"
+  }
 }

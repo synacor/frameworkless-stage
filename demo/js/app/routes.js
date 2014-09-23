@@ -1,6 +1,11 @@
 define([
 	'util', 'router', 'events',
 	'./routes/index',
+	'./routes/one',
+	'./routes/two',
+	'./routes/three',
+	'./routes/four',
+	'./routes/five'
 ], function(util, router, events) {
 	var routes = router();
 	events.mixin(routes);

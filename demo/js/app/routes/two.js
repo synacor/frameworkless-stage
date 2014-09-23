@@ -2,20 +2,12 @@ define([
 	'util',
 	'view', 
 	'stage',
-	'text!templates/index.html'
+	'text!templates/two.html'
 ], function(util, view, stage, template) {
 
 	var route = {
-		url : '/',
+		url : '/two',
 		
-		events : {
-			'click #submit' : function() {
-				page.view.base.find('form').submit();
-			},
-			'click #reset' : function() {
-				page.view.base.find('form').reset();
-			}
-		},
 		
 		load : function(params, router) {
 			
@@ -26,7 +18,10 @@ define([
 				// wire up event handlers:
 				//this.view.hookEvents(this.events);
 			}
-			stage.show(this.view);
+			
+			stage.show({
+				animation: 'fade'
+			}, this.view);
 		},
 		
 		unload : function() {

@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<base href="/"></base>
 		<meta charset="utf8">
 		<title>Demo</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/pure/0.4.2/pure-min.css">
+		<link rel="stylesheet" type="text/css" href="/css/stage.css">
+		<link rel="stylesheet" type="text/css" href="/css/demo.css">
 	</head>
 	<body>
-		<div id="layout">
-			<div id="main"></div>
+		<div id="nav" class="pure-menu pure-menu-open pure-menu-horizontal">
+			<a href="/#/" class="pure-menu-heading">Stage demo</a>
+			<ul>
+				<li><a href="/#/one">Route One</a></li>
+				<li><a href="/#/two">Route Two</a></li>
+				<li><a href="/#/three">Route Three</a></li>
+				<li><a href="/#/four">Route Four</a></li>
+				<li><a href="/#/five">Route Five</a></li>
+			</ul>
 		</div>
+		<div id="main"></div>
 		<script src="js/lib/require.js" data-main="js/app.js"></script>
 	</body>
 </html>

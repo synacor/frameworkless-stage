@@ -1,0 +1,25 @@
+.stage {
+	background: #FFF;
+	
+	> div {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		opacity: 1;
+		transition: all 500ms ease-in-out;
+		
+		&.staged { display: block; }
+		
+		&.fade-out { opacity: 0; }
+		
+		&.down-out { transform: translateY(100%); }
+		
+		&.left-out { transform: translateX(-100%); }
+		
+		&.right-out { transform: translateX(100%); }
+		
+	}
+}
