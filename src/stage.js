@@ -23,7 +23,6 @@
 	
 	function addView(view, options) {
 		if (!view.stage) {
-			console.log("Adding view!", view, options);
 			
 			stage.append(view.base);
 			
@@ -38,7 +37,6 @@
 	function handleAnimation(animView, animation, direction, callback) {
 		if (animation === 'fade'){
 			if (direction){
-				console.log("This should be fading in!");
 				if (!animView.base.hasClass('fade-out')) animView.base.addClass('fade-out');
 				animView.base.addClass('staged');
 				setTimeout(function() {
@@ -67,7 +65,6 @@
 	
 	function hideCurrent(callback) {
 		if (currentlyShowing) {
-			console.log("Hide the view!", currentlyShowing.stageOptions);
 			if (currentlyShowing.stageOptions && currentlyShowing.stageOptions.animation){
 				handleAnimation(currentlyShowing, currentlyShowing.stageOptions.animation, false, callback);
 			}else{
@@ -82,12 +79,8 @@
 	function showView(view) {
 		var before = Date.now();
 		hideCurrent(function() {
-			console.log("Took " + (Date.now() - before) + " to hide.");
-			console.log("Show the view!", view.stageOptions);
 			if (view.stageOptions && view.stageOptions.animation) {
-				console.log("View has an animation!!");
 				handleAnimation(view, view.stageOptions.animation, true, function() {
-					console.log("ANIMATION OVER");
 					currentlyShowing = view;
 				});
 			}else{
