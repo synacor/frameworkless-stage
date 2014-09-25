@@ -19,9 +19,15 @@ define([
 				//this.view.hookEvents(this.events);
 			}
 			
+			stage.spinner('#main');
 			stage.show({
-				animation: 'slide-left'
+				animation: 'slide-left',
+				duration: 500,
+				timingFunction: 'ease'
 			}, this.view);
+			setTimeout(function() {
+				stage.spinner('#main');
+			}, 500);
 		},
 		
 		unload : function() {
