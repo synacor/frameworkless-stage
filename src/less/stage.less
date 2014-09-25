@@ -9,7 +9,9 @@
 		height: 100%;
 		width: 100%;
 		opacity: 1;
-		transition: all 500ms cubic-bezier(1,0.05,0.1,1);
+		transition-property: all;
+		transition-duration: 500ms;
+		transition-timing-function: ease-in-out;
 		transform: translateY(0) translateX(0);
 		
 		&.staged { display: block; }
@@ -26,7 +28,7 @@
 	}
 }
 
-#overlay {
+#stage-spinner-overlay {
 	positon: absolute;
 	display: flex;
 	justify-content: center;
@@ -37,6 +39,7 @@
 	bottom: 0;
 	left: 0;
 	background-color: rgba(150,150,150,0.2);
+	z-index: 99999;
 }
 
 #spinner {
