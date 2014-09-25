@@ -50,7 +50,7 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  border: 2px dashed red;
+  border: 2px dashed #009dff;
   position: relative;
   margin: 0 auto;
   -webkit-animation: roll 3s;
