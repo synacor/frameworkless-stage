@@ -147,11 +147,6 @@
 			if (typeof where === 'string'){
 				
 			}
-		},
-
-		isComplete: function() {
-			console.log("isComplete called");
-			return complete;
 		}
 	});
 	
