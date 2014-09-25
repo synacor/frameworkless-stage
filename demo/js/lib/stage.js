@@ -84,7 +84,7 @@
 	}
 
 	function bufferShow(view) {
-		if (working) {
+		if (working || queue.length) {
 			queue.push(showView.bind(exports, view, cb));
 		}else{
 			showView(view, cb);
