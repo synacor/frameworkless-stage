@@ -18,9 +18,15 @@ define([
 				//this.view.hookEvents(this.events);
 			}
 			
+			stage.spinner('#main');
 			stage.show({
-				animation: 'fade'
-			},this.view);
+				animation: 'fade',
+				duration: 500,
+				timingFunction: 'ease'
+			}, this.view);
+			setTimeout(function() {
+				stage.spinner('#main');
+			}, 500);
 		},
 		
 		unload : function() {

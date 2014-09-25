@@ -26,6 +26,23 @@
 			
 			stage.append(view.base);
 			
+			if(options.duration) {
+
+				view.base.css({
+					'transition-duration': options.duration +'ms',
+					'-webkit-transition-duration': options.duration+'ms',
+					'-moz-transition-duration': options.duration+'ms'
+				});
+			}
+
+			if(options.timingFunction) {
+				view.base.css({
+					'transition-timing-function': options.timingFunction,
+					'-webkit-transition-timing-function': options.timingFunction,
+					'-moz-transition-timing-function': options.timingFunction
+				});
+			}
+
 			view.stage = exports;
 			view.stageOptions = options;
 			
@@ -47,7 +64,7 @@
 			setTimeout(function() {
 				animView.base.removeClass('staged');
 				if (callback) callback();
-			}, 500);
+			}, animView.stageOptions.duration || 500);
 		}
 	}
 
@@ -142,12 +159,32 @@
 			
 			hideCurrent(options);
 		},
-		
+
 		spinner: function(where) {
-			if (typeof where === 'string'){
-				
+			var here, existing;
+
+			if(typeof where === 'string') {
+				here = $(where);
+			} else {
+				here = where;
+			}
+			existing = here.find('#stage-spinner-overlay');
+
+			if(existing.length) {
+				$('#stage-spinner-overlay').remove();
+			} else {
+				here.append('<div id="stage-spinner-overlay"><div id="spinner"></div></div>');
 			}
 		}
+
+		/*addSpinner: function(where) {
+			if(typeof where === 'string')
+				$(where).append('<div id="overlay"><div id="spinner"></div></div>');
+		},
+
+		removeSpinner: function() {
+			$('#overlay').remove();
+		}*/
 	});
 	
 	return exports;
