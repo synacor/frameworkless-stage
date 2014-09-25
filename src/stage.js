@@ -8,12 +8,12 @@
 }(function(View, _, events, $) {
 	var exports = new events(),
 		stage = null,
+		queue = [],
+		working = false,
 		currentlyShowing = null,
-		initialized = false,
-		
-		viewStack = [];
-	
-	
+		initialized = false;
+
+
 	function initContainer(container) {
 		if (typeof container === 'string') {
 			stage = $(container);
@@ -35,34 +35,22 @@
 	}
 	
 	function handleAnimation(animView, animation, direction, callback) {
-		if (animation === 'fade'){
-			if (direction){
-				if (!animView.base.hasClass('fade-out')) animView.base.addClass('fade-out');
-				animView.base.addClass('staged');
-				setTimeout(function() {
-					animView.base.removeClass('fade-out');
-					if (callback) callback();
-				}, 15);
-			}else {
-				animView.base.addClass('fade-out');
-				setTimeout(function() {
-					animView.base.removeClass('staged');
-					if (callback) callback();
-				}, 500);
-			}
-		}else if (animation === 'slide') {
-			if (direction) {
-				if (!animView.base.hasClass('slide-out')) animView.base.addClass('slide-out');
-				animView.base.addClass('staged');
-				setTimeout(function() {
-					animView.base.removeClass('slide-out');
-				}, 15);
-			}else{
-				
-			}
+		if (direction){
+			if (!animView.base.hasClass(animation + '-out')) animView.base.addClass(animation + '-out');
+			animView.base.addClass('staged');
+			setTimeout(function() {
+				animView.base.removeClass(animation + '-out');
+				if (callback) callback();
+			}, 15);
+		}else {
+			animView.base.addClass(animation + '-out');
+			setTimeout(function() {
+				animView.base.removeClass('staged');
+				if (callback) callback();
+			}, 500);
 		}
 	}
-	
+
 	function hideCurrent(callback) {
 		if (currentlyShowing) {
 			if (currentlyShowing.stageOptions && currentlyShowing.stageOptions.animation){
@@ -76,20 +64,37 @@
 		}
 	}
 	
-	function showView(view) {
+	function showView(view, callback) {
+		working = true;
 		var before = Date.now();
 		hideCurrent(function() {
 			if (view.stageOptions && view.stageOptions.animation) {
 				handleAnimation(view, view.stageOptions.animation, true, function() {
 					currentlyShowing = view;
+					working = false;
+					if (callback) callback();
 				});
 			}else{
 				view.base.addClass('staged');
 				currentlyShowing = view;
+				working = false;
+				if (callback) callback();
 			}
-			
-			
 		});
+	}
+
+	function bufferShow(view) {
+		if (working) {
+			queue.push(showView.bind(exports, view, cb));
+		}else{
+			showView(view, cb);
+		}
+
+		function cb() {
+			if (queue.length){
+				queue.pop()();
+			}
+		}
 	}
 	
 	_.extend(exports, {
@@ -118,7 +123,7 @@
 			
 			if (!view.stage) addView(view, options);
 			
-			showView(view);
+			bufferShow(view);
 		},
 		
 		hide: function(options, view) {
@@ -142,6 +147,11 @@
 			if (typeof where === 'string'){
 				
 			}
+		},
+
+		isComplete: function() {
+			console.log("isComplete called");
+			return complete;
 		}
 	});
 	
