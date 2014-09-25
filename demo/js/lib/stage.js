@@ -26,6 +26,21 @@
 			
 			stage.append(view.base);
 			
+			if(options.duration) {
+
+				view.base.css({
+					'transition-duration': options.duration +'ms',
+					'-webkit-transition-duration': options.duration+'ms',
+					'-moz-transition-duration': options.duration+'ms'
+				});
+			}
+
+			if(options.timingFunction) {
+				view.base.css({
+					'transition-timing-function': options.timingFunction
+				});
+			}
+
 			view.stage = exports;
 			view.stageOptions = options;
 			
@@ -47,7 +62,7 @@
 			setTimeout(function() {
 				animView.base.removeClass('staged');
 				if (callback) callback();
-			}, 500);
+			}, animView.stageOptions.duration || 500);
 		}
 	}
 
@@ -66,33 +81,21 @@
 	
 	function showView(view, callback) {
 		working = true;
-		addSpinner('#main');
 		var before = Date.now();
 		hideCurrent(function() {
 			if (view.stageOptions && view.stageOptions.animation) {
 				handleAnimation(view, view.stageOptions.animation, true, function() {
 					currentlyShowing = view;
 					working = false;
-					removeSpinner('div');
 					if (callback) callback();
 				});
 			}else{
 				view.base.addClass('staged');
 				currentlyShowing = view;
 				working = false;
-				removeSpinner('div');
 				if (callback) callback();
 			}
 		});
-
-		function addSpinner(where) {
-			if(typeof where === 'string')
-				$(where).append('<div id="overlay"><div id="spinner"></div></div>');
-		}
-
-		function removeSpinner() {
-			$('#overlay').remove();
-		}
 	}
 
 	function bufferShow(view) {
@@ -154,6 +157,32 @@
 			
 			hideCurrent(options);
 		},
+
+		spinner: function(where) {
+			var here, existing;
+
+			if(typeof where === 'string') {
+				here = $(where);
+			} else {
+				here = where;
+			}
+			existing = here.find('#stage-spinner-overlay');
+
+			if(existing.length) {
+				$('#stage-spinner-overlay').remove();
+			} else {
+				here.append('<div id="stage-spinner-overlay"><div id="spinner"></div></div>');
+			}
+		}
+
+		/*addSpinner: function(where) {
+			if(typeof where === 'string')
+				$(where).append('<div id="overlay"><div id="spinner"></div></div>');
+		},
+
+		removeSpinner: function() {
+			$('#overlay').remove();
+		}*/
 	});
 	
 	return exports;
