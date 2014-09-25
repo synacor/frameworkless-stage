@@ -66,21 +66,33 @@
 	
 	function showView(view, callback) {
 		working = true;
+		addSpinner('#main');
 		var before = Date.now();
 		hideCurrent(function() {
 			if (view.stageOptions && view.stageOptions.animation) {
 				handleAnimation(view, view.stageOptions.animation, true, function() {
 					currentlyShowing = view;
 					working = false;
+					removeSpinner('div');
 					if (callback) callback();
 				});
 			}else{
 				view.base.addClass('staged');
 				currentlyShowing = view;
 				working = false;
+				removeSpinner('div');
 				if (callback) callback();
 			}
 		});
+
+		function addSpinner(where) {
+			if(typeof where === 'string')
+				$(where).append('<div id="overlay"><div id="spinner"></div></div>');
+		}
+
+		function removeSpinner() {
+			$('#overlay').remove();
+		}
 	}
 
 	function bufferShow(view) {
@@ -142,12 +154,6 @@
 			
 			hideCurrent(options);
 		},
-		
-		spinner: function(where) {
-			if (typeof where === 'string'){
-				
-			}
-		}
 	});
 	
 	return exports;
