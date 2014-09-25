@@ -37,7 +37,9 @@
 
 			if(options.timingFunction) {
 				view.base.css({
-					'transition-timing-function': options.timingFunction
+					'transition-timing-function': options.timingFunction,
+					'-webkit-transition-timing-function': options.timingFunction,
+					'-moz-transition-timing-function': options.timingFunction
 				});
 			}
 
