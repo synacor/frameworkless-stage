@@ -9,7 +9,8 @@
   height: 100%;
   width: 100%;
   opacity: 1;
-  transition: all 500ms ease-in-out;
+  transition: all 500ms cubic-bezier(1, 0.05, 0.1, 1);
+  transform: translateY(0) translateX(0);
 }
 .stage > div.staged {
   display: block;
@@ -17,12 +18,18 @@
 .stage > div.fade-out {
   opacity: 0;
 }
-.stage > div.down-out {
+.stage > div.slide-up-out {
+  transform: translateY(-100%);
+}
+.stage > div.slide-down-out {
   transform: translateY(100%);
 }
-.stage > div.left-out {
+.stage > div.slide-left-out {
   transform: translateX(-100%);
 }
-.stage > div.right-out {
+.stage > div.slide-right-out {
+  transform: translateX(100%);
+}
+.stage > div.slide-right-fast-out {
   transform: translateX(100%);
 }

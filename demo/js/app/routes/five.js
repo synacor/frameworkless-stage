@@ -18,7 +18,9 @@ define([
 				//this.view.hookEvents(this.events);
 			}
 			
-			stage.show(this.view);
+			stage.show({
+				animation: 'fade'
+			},this.view);
 		},
 		
 		unload : function() {

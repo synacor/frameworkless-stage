@@ -18,7 +18,6 @@ define([
 		},
 		
 		load : function(params, router) {
-			
 			if (!this.view) {
 				// initialize a view:
 				this.view = new view(template);
@@ -26,13 +25,22 @@ define([
 				// wire up event handlers:
 				//this.view.hookEvents(this.events);
 			}
-			stage.show(this.view);
+			
+			stage.show({
+				animation: 'slide-left'
+			}, this.view);
 		},
 		
 		unload : function() {
 			// remove view from DOM:
+		},
+
+		isRunning : function() {
+			if(stage.isComplete()) return true;
+
+			return false;
 		}
-	};
+	}
 
 	return route;
 });

@@ -20,7 +20,7 @@ define([
 			}
 			
 			stage.show({
-				animation: 'fade'
+				animation: 'slide-right'
 			}, this.view);
 		},
 		
