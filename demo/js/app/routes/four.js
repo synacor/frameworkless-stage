@@ -18,7 +18,9 @@ define([
 				//this.view.hookEvents(this.events);
 			}
 			
-			stage.show(this.view);
+			stage.show({
+				animation: 'slide-left'
+			},this.view);
 		},
 		
 		unload : function() {

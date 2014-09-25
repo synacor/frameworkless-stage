@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			options: {
-				debounceDelay: 1000
+				debounceDelay: 1500
 			},
 			src: {
 				files: ['src/**/*'],

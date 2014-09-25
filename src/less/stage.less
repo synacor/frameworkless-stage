@@ -9,17 +9,19 @@
 		height: 100%;
 		width: 100%;
 		opacity: 1;
-		transition: all 500ms ease-in-out;
+		transition: all 500ms cubic-bezier(1,0.05,0.1,1);
+		transform: translateY(0) translateX(0);
 		
 		&.staged { display: block; }
 		
 		&.fade-out { opacity: 0; }
 		
-		&.down-out { transform: translateY(100%); }
+		&.slide-up-out { transform: translateY(-100%); }
+
+		&.slide-down-out { transform: translateY(100%); }
 		
-		&.left-out { transform: translateX(-100%); }
+		&.slide-left-out { transform: translateX(-100%); }
 		
-		&.right-out { transform: translateX(100%); }
-		
+		&.slide-right-out { transform: translateX(100%); }
 	}
 }
