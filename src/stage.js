@@ -1,11 +1,11 @@
 (function(factory) {
 	if (typeof define==='function' && define.amd) {
-		define(['view', 'util', 'events', 'zepto'], factory);
+		define(['view', 'util', 'events'], factory);
 	}
 	else {
-		factory(View, window.util, window.EventEmitter, $, window.View);
+		factory(View, window.util, window.EventEmitter, window.View);
 	}
-}(function(View, _, events, $) {
+}(function(View, _, events) {
 	var exports = new events(),
 		stage = null,
 		queue = [],
@@ -16,31 +16,43 @@
 
 	function initContainer(container) {
 		if (typeof container === 'string') {
-			stage = $(container);
-			stage.addClass('stage');
+			stage = document.querySelector(container);
+
+			if(!stage) return false;
+			//stage = $(container);
+
+			addClass(stage, 'stage');
+			//stage.addClass('stage');
 		}
 	}
 	
 	function addView(view, options) {
+		
 		if (!view.stage) {
-			
-			stage.append(view.base);
+			stage.appendChild(view);
 			
 			if(options.duration) {
 
-				view.base.css({
-					'transition-duration': options.duration +'ms',
+				view.style.transitionDuration = options.duration +'ms';
+				view.style.webkitTransitionDuration = options.duration +'ms';
+				view.style.mozTransitionDuration = options.duration +'ms';
+
+				/*view.base.css({
+					'transition-duration': 
 					'-webkit-transition-duration': options.duration+'ms',
 					'-moz-transition-duration': options.duration+'ms'
-				});
+				});*/
 			}
 
 			if(options.timingFunction) {
-				view.base.css({
+				view.style.transitionDuration = options.timingFunction;
+				view.style.webkitTransitionDuration = options.timingFunction;
+				view.style.mozTransitionDuration = options.timingFunction;
+				/*view.base.css({
 					'transition-timing-function': options.timingFunction,
 					'-webkit-transition-timing-function': options.timingFunction,
 					'-moz-transition-timing-function': options.timingFunction
-				});
+				});*/
 			}
 
 			view.stage = exports;
@@ -50,30 +62,36 @@
 		}
 		return false;
 	}
-	
+
 	function handleAnimation(animView, animation, direction, callback) {
+		var className = animation + '-out';
+
 		if (direction){
-			if (!animView.base.hasClass(animation + '-out')) animView.base.addClass(animation + '-out');
-			animView.base.addClass('staged');
+			if (!hasClass(animView, className)){
+				addClass(animView, className);
+			} 
+			addClass(animView, 'staged');
 			setTimeout(function() {
-				animView.base.removeClass(animation + '-out');
+				removeClass(animView, className);
 				if (callback) callback();
 			}, 15);
 		}else {
-			animView.base.addClass(animation + '-out');
+			addClass(animView, className);
 			setTimeout(function() {
-				animView.base.removeClass('staged');
+				removeClass(animView, 'staged');
+
 				if (callback) callback();
 			}, animView.stageOptions.duration || 500);
 		}
 	}
 
 	function hideCurrent(callback) {
+		console.log("hideCurrent Called");
 		if (currentlyShowing) {
 			if (currentlyShowing.stageOptions && currentlyShowing.stageOptions.animation){
 				handleAnimation(currentlyShowing, currentlyShowing.stageOptions.animation, false, callback);
 			}else{
-				currentlyShowing.base.removeClass('staged');
+				removeClass(currentlyShowing.base[0], 'staged');
 				if (callback) callback();
 			}
 		}else{
@@ -92,7 +110,7 @@
 					if (callback) callback();
 				});
 			}else{
-				view.base.addClass('staged');
+				addClass(view, 'staged');
 				currentlyShowing = view;
 				working = false;
 				if (callback) callback();
@@ -114,6 +132,25 @@
 		}
 	}
 	
+	function addClass(selector, className) {
+		if(!selector.classList.contains(className))	selector.classList.add(className);
+	}
+
+	function removeClass(selector, className) {
+		selector.classList.remove(className);
+	}
+
+	function hasClass(selector, className) {
+		return selector.classList.contains(className);
+	}
+
+	function findNode(selector, childName) {
+		console.log(childName);
+		var child = document.getElementById(childName);
+		console.log(child);
+		return child;
+	}
+
 	_.extend(exports, {
 		
 		init: function(options) {
@@ -124,23 +161,30 @@
 			initialized = true;
 		},
 		
-		show: function(options, view) {
+		show: function(view, options) {
 			if (!initialized) return false;
 			
-			if (options instanceof View) {
-				view = options;
-				options = null;
+			if (!view) return false;
+
+			var viewNode;
+
+			if (view instanceof HTMLElement || view instanceof Element){
+				viewNode = view;
+			}else if (view.hasOwnProperty('base')) {
+				viewNode = view.base[0];
+			}else if (view.hasOwnProperty('0')){
+				viewNode = view[0];
 			}
 			
 			options = options || view.stageOptions || {
 				animation: false
 			};
 			
-			if (!view || !view.base) return false;
+			if (!viewNode) return false;
 			
-			if (!view.stage) addView(view, options);
+			if (!viewNode.stage) addView(viewNode, options);
 			
-			bufferShow(view);
+			bufferShow(viewNode);
 		},
 		
 		hide: function(options, view) {
@@ -161,19 +205,25 @@
 		},
 
 		spinner: function(where) {
-			var here, existing;
+			var here;
 
 			if(typeof where === 'string') {
-				here = $(where);
+				here = document.querySelector(where);
 			} else {
 				here = where;
 			}
-			existing = here.find('#stage-spinner-overlay');
-
-			if(existing.length) {
-				$('#stage-spinner-overlay').remove();
+			console.log("WHERE? HERE!", here);
+			existing = here.querySelector('#stage-spinner-overlay');
+			console.log("Existing spinner?", existing);
+			if(existing) {
+				existing.parentNode.removeChild(existing);
+				console.log("Removed spinner");
 			} else {
-				here.append('<div id="stage-spinner-overlay"><div id="spinner"></div></div>');
+				var element = document.createElement('div');
+				element.setAttribute('id', 'stage-spinner-overlay');
+				element.innerHTML = '<div id="spinner"></div>';
+				here.appendChild(element);
+				console.log("Appended spinner");
 			}
 		}
 
