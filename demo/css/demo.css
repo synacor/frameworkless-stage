@@ -18,4 +18,27 @@
 	left: 0;
 	right: 0;
 	text-align: center;
+<<<<<<< Updated upstream
+=======
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	overflow: auto;
+}
+
+li {
+	display: block;
+	vertical-align: middle;
+	position: relative;
+	left: -20px;
+	margin: 5px 0;
+	padding: 10px;
+}
+
+li:hover {
+	background-color: white;
+	color: black;
+>>>>>>> Stashed changes
 }
