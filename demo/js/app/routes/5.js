@@ -2,11 +2,11 @@ define([
 	'util',
 	'view', 
 	'stage',
-	'text!templates/three.html'
+	'text!templates/5.html'
 ], function(util, view, stage, template) {
 
 	var route = {
-		url : '/three',
+		url : '/5',
 		
 		load : function(params, router) {
 			
@@ -19,11 +19,11 @@ define([
 			}
 			
 			stage.spinner('#main');
-			stage.show({
-				animation: 'slide-right',
+			stage.show(this.view, {
+				animation: 'slide-left',
 				duration: 500,
 				timingFunction: 'ease'
-			}, this.view);
+			});
 			setTimeout(function() {
 				stage.spinner('#main');
 			}, 500);

@@ -2,11 +2,11 @@ define([
 	'util',
 	'view', 
 	'stage',
-	'text!templates/two.html'
+	'text!templates/2.html'
 ], function(util, view, stage, template) {
 
 	var route = {
-		url : '/two',
+		url : '/2',
 		
 		
 		load : function(params, router) {
@@ -20,11 +20,10 @@ define([
 			}
 			
 			stage.spinner('#main');
-			stage.show({
-				animation: 'slide-left',
-				duration: 500,
-				timingFunction: 'ease'
-			}, this.view);
+			stage.show(this.view, {
+				animation: 'slide-up',
+				duration: 300
+			});
 			setTimeout(function() {
 				stage.spinner('#main');
 			}, 500);
