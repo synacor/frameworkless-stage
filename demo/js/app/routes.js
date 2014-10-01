@@ -1,11 +1,23 @@
 define([
 	'util', 'router', 'events',
 	'./routes/index',
-	'./routes/one',
-	'./routes/two',
-	'./routes/three',
-	'./routes/four',
-	'./routes/five'
+	'./routes/1',
+	'./routes/2',
+	'./routes/3',
+	'./routes/4',
+	'./routes/5',
+	'./routes/6',
+	'./routes/7',
+	'./routes/8',
+	'./routes/9',
+	'./routes/10',
+	'./routes/11',
+	'./routes/12',
+	'./routes/13',
+	'./routes/14',
+	'./routes/15',
+	'./routes/16',
+	'./routes/17'
 ], function(util, router, events) {
 	var routes = router();
 	events.mixin(routes);
