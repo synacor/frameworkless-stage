@@ -36,23 +36,12 @@
 				view.style.transitionDuration = options.duration +'ms';
 				view.style.webkitTransitionDuration = options.duration +'ms';
 				view.style.mozTransitionDuration = options.duration +'ms';
-
-				/*view.base.css({
-					'transition-duration': 
-					'-webkit-transition-duration': options.duration+'ms',
-					'-moz-transition-duration': options.duration+'ms'
-				});*/
 			}
 
 			if(options.timingFunction) {
 				view.style.transitionDuration = options.timingFunction;
 				view.style.webkitTransitionDuration = options.timingFunction;
 				view.style.mozTransitionDuration = options.timingFunction;
-				/*view.base.css({
-					'transition-timing-function': options.timingFunction,
-					'-webkit-transition-timing-function': options.timingFunction,
-					'-moz-transition-timing-function': options.timingFunction
-				});*/
 			}
 
 			view.stage = exports;
@@ -181,7 +170,6 @@
 			};
 			
 			if (!viewNode) return false;
-			
 			if (!viewNode.stage) addView(viewNode, options);
 			
 			bufferShow(viewNode);
@@ -202,39 +190,7 @@
 			if (currentlyShowing !== view.base) return false;
 			
 			hideCurrent(options);
-		},
-
-		spinner: function(where) {
-			var here;
-
-			if(typeof where === 'string') {
-				here = document.querySelector(where);
-			} else {
-				here = where;
-			}
-			console.log("WHERE? HERE!", here);
-			existing = here.querySelector('#stage-spinner-overlay');
-			console.log("Existing spinner?", existing);
-			if(existing) {
-				existing.parentNode.removeChild(existing);
-				console.log("Removed spinner");
-			} else {
-				var element = document.createElement('div');
-				element.setAttribute('id', 'stage-spinner-overlay');
-				element.innerHTML = '<div id="spinner"></div>';
-				here.appendChild(element);
-				console.log("Appended spinner");
-			}
 		}
-
-		/*addSpinner: function(where) {
-			if(typeof where === 'string')
-				$(where).append('<div id="overlay"><div id="spinner"></div></div>');
-		},
-
-		removeSpinner: function() {
-			$('#overlay').remove();
-		}*/
 	});
 	
 	return exports;
