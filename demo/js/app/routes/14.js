@@ -2,13 +2,15 @@ define([
 	'util',
 	'view', 
 	'stage',
+	'../modules/spinner',
 	'text!templates/14.html'
-], function(util, view, stage, template) {
+], function(util, view, stage, spinner, template) {
 
 	var route = {
 		url : '/14',
 		
 		load : function(params, router) {
+			
 			if (!this.view) {
 				// initialize a view:
 				this.view = new view(template);
@@ -16,22 +18,22 @@ define([
 				// wire up event handlers:
 				//this.view.hookEvents(this.events);
 			}
-			stage.spinner('#main');
+			
+			spinner.toggleSpinner('#main');
 			stage.show(this.view, {
 				animation: 'twist-right',
 				duration: 500,
 				timingFunction: 'ease'
 			});
 			setTimeout(function() {
-				stage.spinner('#main');
+				spinner.toggleSpinner('#main');
 			}, 500);
-			
 		},
 		
 		unload : function() {
 			// remove view from DOM:
 		}
-	}
+	};
 
 	return route;
 });

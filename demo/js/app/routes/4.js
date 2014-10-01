@@ -2,8 +2,9 @@ define([
 	'util',
 	'view', 
 	'stage',
+	'../modules/spinner',
 	'text!templates/4.html'
-], function(util, view, stage, template) {
+], function(util, view, stage, spinner, template) {
 
 	var route = {
 		url : '/4',
@@ -18,14 +19,14 @@ define([
 				//this.view.hookEvents(this.events);
 			}
 			
-			stage.spinner('#main');
+			spinner.toggleSpinner('#main');
 			stage.show(this.view, {
 				animation: 'slide-right',
 				duration: 500,
 				timingFunction: 'ease'
 			});
 			setTimeout(function() {
-				stage.spinner('#main');
+				spinner.toggleSpinner('#main');
 			}, 500);
 		},
 		
