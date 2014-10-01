@@ -1,5 +1,5 @@
 .stage {
-	background: #FFF;
+	background: lightblue;
 	
 	> div {
 		display: none;
@@ -13,6 +13,18 @@
 		transition-duration: 500ms;
 		transition-timing-function: ease-in-out;
 		transform: translateY(0) translateX(0);
+		transition-duration: 500ms;
+		transition-timing-function: ease-in-out;
+		transform: translateY(0) translateX(0) rotateY(0) rotateX(0) scale(1, 1);
+		-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+		-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden;
+				backface-visibility: hidden;
+		-webkit-perspective: 500px;
+			-moz-perspective: 500px;
+				perspective: 500px;
 		
 		&.staged { display: block; }
 		
@@ -25,6 +37,50 @@
 		&.slide-left-out { transform: translateX(-100%); }
 		
 		&.slide-right-out { transform: translateX(100%); }
+
+		&.flip-h-out {
+			z-index: 9999999;
+			-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+					transform: rotateY(180deg);
+		}
+
+		&.flip-v-out {
+			z-index: 9999999;
+			-webkit-transform: rotateX(180deg);
+				-moz-transform: rotateX(180deg);
+					transform: rotateX(180deg);
+		}
+
+		&.stretch-out {
+			transform: scale(2, 1);
+			opacity: 0;
+		}
+
+		&.expand-out { transform: scale(0, 1); }
+
+		&.rotate-left-out {
+			transform: rotateZ(180deg);
+			opacity: 0;
+		}
+
+		&.rotate-right-out {
+			transform: rotateZ(-180deg);
+			opacity: 0;
+		}
+
+		&.skew-right-out { transform: skew(90deg, 90deg); }
+
+		&.skew-left-out { transform: skew(-90deg, -90deg); }
+
+		&.twist-right-out { transform: skew(-90deg, 90deg); }
+
+		&.twist-left-out { transform: skew(90deg, -90deg); }
+
+		&.flatten-left-out { transform: skewX(90deg); }
+
+		&.flatten-right-out { transform: skewX(-90deg); }
+
 	}
 }
 

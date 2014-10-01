@@ -1,5 +1,5 @@
 .stage {
-  background: #FFF;
+  background: lightblue;
 }
 .stage > div {
   display: none;
@@ -10,9 +10,19 @@
   width: 100%;
   opacity: 1;
   transition-property: all;
+  transform: translateY(0) translateX(0);
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
-  transform: translateY(0) translateX(0);
+  transform: translateY(0) translateX(0) rotateY(0) rotateX(0) scale(1, 1);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 500px;
+  -moz-perspective: 500px;
+  perspective: 500px;
 }
 .stage > div.staged {
   display: block;
@@ -31,6 +41,51 @@
 }
 .stage > div.slide-right-out {
   transform: translateX(100%);
+}
+.stage > div.flip-h-out {
+  z-index: 9999999;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.stage > div.flip-v-out {
+  z-index: 9999999;
+  -webkit-transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+.stage > div.stretch-out {
+  transform: scale(2, 1);
+  opacity: 0;
+}
+.stage > div.expand-out {
+  transform: scale(0, 1);
+}
+.stage > div.rotate-left-out {
+  transform: rotateZ(180deg);
+  opacity: 0;
+}
+.stage > div.rotate-right-out {
+  transform: rotateZ(-180deg);
+  opacity: 0;
+}
+.stage > div.skew-right-out {
+  transform: skew(90deg, 90deg);
+}
+.stage > div.skew-left-out {
+  transform: skew(-90deg, -90deg);
+}
+.stage > div.twist-right-out {
+  transform: skew(-90deg, 90deg);
+}
+.stage > div.twist-left-out {
+  transform: skew(90deg, -90deg);
+}
+.stage > div.flatten-left-out {
+  transform: skewX(90deg);
+}
+.stage > div.flatten-right-out {
+  transform: skewX(-90deg);
 }
 #stage-spinner-overlay {
   positon: absolute;
