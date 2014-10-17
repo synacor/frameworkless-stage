@@ -19,10 +19,8 @@
 			stage = document.querySelector(container);
 
 			if(!stage) return false;
-			//stage = $(container);
 
 			addClass(stage, 'stage');
-			//stage.addClass('stage');
 		}
 	}
 	
@@ -75,12 +73,11 @@
 	}
 
 	function hideCurrent(callback) {
-		console.log("hideCurrent Called");
 		if (currentlyShowing) {
 			if (currentlyShowing.stageOptions && currentlyShowing.stageOptions.animation){
 				handleAnimation(currentlyShowing, currentlyShowing.stageOptions.animation, false, callback);
 			}else{
-				removeClass(currentlyShowing.base[0], 'staged');
+				removeClass(currentlyShowing.base, 'staged');
 				if (callback) callback();
 			}
 		}else{
@@ -133,13 +130,6 @@
 		return selector.classList.contains(className);
 	}
 
-	function findNode(selector, childName) {
-		console.log(childName);
-		var child = document.getElementById(childName);
-		console.log(child);
-		return child;
-	}
-
 	_.extend(exports, {
 		
 		init: function(options) {
@@ -160,7 +150,7 @@
 			if (view instanceof HTMLElement || view instanceof Element){
 				viewNode = view;
 			}else if (view.hasOwnProperty('base')) {
-				viewNode = view.base[0];
+				viewNode = view.base;
 			}else if (view.hasOwnProperty('0')){
 				viewNode = view[0];
 			}

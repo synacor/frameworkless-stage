@@ -11,6 +11,14 @@
     "ui",
     "common"
   ],
+  "ignore": [
+    "/*.js",
+    "jsdoc.json",
+    "src",
+    "node_modules",
+    "jsdoc-template",
+    "demo"
+  ],
   "license": "Proprietary",
   "devDependencies": {
     "frameworkless": "https://stash.corp.synacor.com/scm/apla/frameworkless.git#~0.2.2"
