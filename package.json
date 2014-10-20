@@ -1,17 +1,18 @@
 {
   "name": "frameworkless-stage",
-  "version": "0.0.1",
-  "description": "A stage module to be used in frameworkless apps.",
-  "main": "demo-server.js",
+  "version": "0.1.0",
+  "description": "Push views onto a stage, with optional view transitions.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified.\" && exit 1",
-    "start": "node demo-server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "https://stash.corp.synacor.com/scm/apla/frameworkless-stage.git"
   },
   "keywords": [
+    "frameworkless",
     "stage",
     "ui",
     "common"

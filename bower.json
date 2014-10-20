@@ -1,12 +1,13 @@
 {
   "name": "frameworkless-stage",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "authors": [
     "Synacor"
   ],
-  "description": "A stage module to be used in frameworkless apps.",
+  "description": "Push views onto a stage, with optional view transitions.",
   "main": "dist/stage.js",
   "keywords": [
+    "frameworkless",
     "stage",
     "ui",
     "common"
