@@ -8,8 +8,9 @@ html, body {
 	position: absolute;
 	left: 160px;
 	right: 0;
-	top: 0;
-	height: 100%;
+	top: 50%;
+	height: 15em;
+	margin: -7em 0 0;
 	text-align: center;
 }
 	#main h1 {
