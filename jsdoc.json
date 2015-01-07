@@ -1,8 +1,10 @@
 {
 	"opts" : {
+		"pagetitle" : "Frameworkless Stage",
+		"github" : "synacorinc/frameworkless-stage",
 		"template" : "./jsdoc-template",
-		"indexName" : "frameworkless-stage",
-		"mainpagetitle" : "Frameworkless Stage"
+		"indexName" : "Overview",
+		"mainpagetitle" : "Overview"
 	},
 	"plugins" : [
 		"plugins/markdown"
