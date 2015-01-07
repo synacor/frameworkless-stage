@@ -90,6 +90,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
 		watch: {
 			options: {
 				debounceDelay: 1500
@@ -112,6 +113,7 @@ module.exports = function(grunt) {
 		'uglify:main',
 		'copy:demo',
 		'less:main',
-		'copy:style'
+		'copy:style',
+		'jsdoc:main'
 	]);
 };
