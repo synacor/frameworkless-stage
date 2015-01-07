@@ -1,187 +1,160 @@
-(function(factory) {
+(function(g, factory) {
 	if (typeof define==='function' && define.amd) {
-		define(['view', 'util', 'events'], factory);
+		define([], factory);
 	}
 	else {
-		factory(View, window.util, window.EventEmitter, window.View);
+		g.stage = g['frameworkless-stage'] = factory();
 	}
-}(function(View, _, events) {
-	var exports = new events(),
-		stage = null,
+}(this, function() {
+	var exports,
 		queue = [],
-		working = false,
-		currentlyShowing = null,
-		initialized = false;
+		stage, working, current, initialized;
 
-
-	function initContainer(container) {
-		if (typeof container === 'string') {
-			stage = document.querySelector(container);
-
-			if(!stage) return false;
-
+	exports = {
+		/** Initialize the stage within a given container element.
+		 *	@param {Element} container		A parent node into which the stage should be placed
+		 */
+		init : function(options) {
+			var c = options.container || options;
+			stage = typeof c==='string' ? document.querySelector(c) : c;
+			if (!stage || !stage.nodeName) {
+				return false;
+			}
 			addClass(stage, 'stage');
-		}
-	}
-	
-	function addView(view, options) {
-		
-		if (!view.stage) {
-			stage.appendChild(view);
-			
-			if(options.duration) {
+			initialized = true;
+		},
 
-				view.style.transitionDuration = options.duration +'ms';
-				view.style.webkitTransitionDuration = options.duration +'ms';
-				view.style.mozTransitionDuration = options.duration +'ms';
+		show : function(view, options, callback) {
+			var el = view.base || view;
+			el = el[0] || el;
+
+			if (!initialized || !view || !el) return false;
+
+			options = options || view.stageOptions || {
+				animation: false
+			};
+
+			if (!el.stage) {
+				addView(el, options);
 			}
 
-			if(options.timingFunction) {
-				view.style.transitionDuration = options.timingFunction;
-				view.style.webkitTransitionDuration = options.timingFunction;
-				view.style.mozTransitionDuration = options.timingFunction;
+			bufferShow(el, callback);
+			return true;
+		},
+
+		hide : function(options, view) {
+			var cur;
+			if (!view) {
+				view = options;
+				options = null;
+			}
+
+			cur = view && view.base && current===view.base;
+			if (cur) {
+				hideCurrent(options || false);
+			}
+			return cur;
+		}
+	};
+
+	function addView(view, options) {
+		var s = view.style;
+		if (!view.stage) {
+			stage.appendChild(view);
+
+			if (options.duration) {
+				s.transitionDuration = s.webkitTransitionDuration = s.mozTransitionDuration = options.duration + 'ms';
+			}
+
+			if (options.timingFunction) {
+				s.transitionTimingFunction = s.webkitTransitionTimingFunction = s.mozTransitionTimingFunction = options.timingFunction;
 			}
 
 			view.stage = exports;
 			view.stageOptions = options;
-			
-			return true;
 		}
-		return false;
 	}
 
-	function handleAnimation(animView, animation, direction, callback) {
-		var className = animation + '-out';
+	function handleAnimation(node, animation, direction, callback) {
+		var className = animation + '-out',
+			dur = Math.round(node.stageOptions.duration) || 500;
 
-		if (direction){
-			if (!hasClass(animView, className)){
-				addClass(animView, className);
-			} 
-			addClass(animView, 'staged');
+		addClass(node, className);
+
+		if (direction) {
+			addClass(node, 'staged');
 			setTimeout(function() {
-				removeClass(animView, className);
-				if (callback) callback();
+				removeClass(node, className);
 			}, 15);
-		}else {
-			addClass(animView, className);
-			setTimeout(function() {
-				removeClass(animView, 'staged');
-
-				if (callback) callback();
-			}, animView.stageOptions.duration || 500);
 		}
+
+		setTimeout(function() {
+			if (!direction) {
+				removeClass(node, 'staged');
+			}
+			call(callback);
+		}, dur+10);
 	}
 
 	function hideCurrent(callback) {
-		if (currentlyShowing) {
-			if (currentlyShowing.stageOptions && currentlyShowing.stageOptions.animation){
-				handleAnimation(currentlyShowing, currentlyShowing.stageOptions.animation, false, callback);
-			}else{
-				removeClass(currentlyShowing.base, 'staged');
-				if (callback) callback();
+		var opt;
+		if (current) {
+			opt = current.stageOptions;
+			if (opt && opt.animation) {
+				return handleAnimation(current, opt.animation, false, callback);
 			}
-		}else{
-			if (callback) callback();
+			removeClass(current.base, 'staged');
 		}
+
+		call(callback);
 	}
-	
+
 	function showView(view, callback) {
+		var opt = view.stageOptions;
 		working = true;
-		var before = Date.now();
+
+		function done() {
+			current = view;
+			working = false;
+			call(callback);
+		}
+
 		hideCurrent(function() {
-			if (view.stageOptions && view.stageOptions.animation) {
-				handleAnimation(view, view.stageOptions.animation, true, function() {
-					currentlyShowing = view;
-					working = false;
-					if (callback) callback();
-				});
-			}else{
-				addClass(view, 'staged');
-				currentlyShowing = view;
-				working = false;
-				if (callback) callback();
+			if (opt && opt.animation) {
+				return handleAnimation(view, opt.animation, true, done);
 			}
+			addClass(view, 'staged');
+			done();
 		});
 	}
 
-	function bufferShow(view) {
+	function bufferShow(view, callback) {
+		function work() {
+			showView(view, function() {
+				if (queue.length) {
+					queue.pop()();
+				}
+				call(callback);
+			});
+		}
+
 		if (working || queue.length) {
-			queue.push(showView.bind(exports, view, cb));
-		}else{
-			showView(view, cb);
+			return queue.push(work);
 		}
-
-		function cb() {
-			if (queue.length){
-				queue.pop()();
-			}
-		}
-	}
-	
-	function addClass(selector, className) {
-		if(!selector.classList.contains(className))	selector.classList.add(className);
+		work();
 	}
 
-	function removeClass(selector, className) {
-		selector.classList.remove(className);
+	function addClass(node, className) {
+		node.classList.add(className);
 	}
 
-	function hasClass(selector, className) {
-		return selector.classList.contains(className);
+	function removeClass(node, className) {
+		node.classList.remove(className);
 	}
 
-	_.extend(exports, {
-		
-		init: function(options) {
-			if (!options.container) return false;
-			
-			initContainer(options.container);
-			
-			initialized = true;
-		},
-		
-		show: function(view, options) {
-			if (!initialized) return false;
-			
-			if (!view) return false;
+	function call(fn) {
+		if (typeof fn==='function') return fn();
+	}
 
-			var viewNode;
-
-			if (view instanceof HTMLElement || view instanceof Element){
-				viewNode = view;
-			}else if (view.hasOwnProperty('base')) {
-				viewNode = view.base;
-			}else if (view.hasOwnProperty('0')){
-				viewNode = view[0];
-			}
-			
-			options = options || view.stageOptions || {
-				animation: false
-			};
-			
-			if (!viewNode) return false;
-			if (!viewNode.stage) addView(viewNode, options);
-			
-			bufferShow(viewNode);
-		},
-		
-		hide: function(options, view) {
-			if (!initialized) return false;
-			
-			if (options instanceof view) {
-				view = options;
-				options = null;
-			}
-			
-			options = options || false;
-			
-			if (!view || !view.base) return false;
-			
-			if (currentlyShowing !== view.base) return false;
-			
-			hideCurrent(options);
-		}
-	});
-	
 	return exports;
 }));
