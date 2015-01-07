@@ -7,15 +7,15 @@ var express = require('express'),
 app.use(compression());
 
 app.use(function(req, res, next) {
-	if (!req.url.match(/(^\/?(static|docs)\/|\.[a-z]+$)/g)) {
+	if (!req.url.match(/(^\/?(static|docs|dist|demo)\/|\.[a-z]+$)/g)) {
 		req.url = '/';
 	}
 	next();
 });
 
-app.use(serveStatic('demo/'));
-
-app.use('/docs', serveStatic('docs/'));
+app.use(serveStatic('docs/'));
+app.use('/dist', serveStatic('dist/'));
+app.use('/demo', serveStatic('demo/'));
 
 app.listen(port, function() {
 	console.log('Server listening on localhost:'+port);
