@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		
+
 		uglify: {
 			main: {
 				files: {
@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		
+
 		copy:{
 			main: {
 				expand: true,
@@ -34,28 +34,36 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						cwd: 'src/css',
-						src: '*.css',
+						src: [
+							'*.css',
+							'!demo.css'
+						],
 						dest: 'dist/css/'
 					}
 				]
-				
+
 			},
 			bower: {
 				expand: true,
 				flatten: true,
 				cwd: 'bower_components',
-				src: ['**/*.js', '!**/*.min.js'],
+				src: [
+					'**/*.js',
+					'!**/*.min.js'
+				],
 				dest: 'demo/js/lib/'
 			}
 		},
-		
+
 		jshint: {
 			options: {
 				browser: true
 			},
-			main: ['src/**/*.js']
+			main: [
+				'src/**/*.js'
+			]
 		},
-		
+
 		less: {
 			main: {
 				options: {
@@ -68,7 +76,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		
+
 		jsdoc: {
 			main: {
 				src: [
@@ -91,11 +99,11 @@ module.exports = function(grunt) {
 				tasks: ['default']
 			}
 		}
-		
+
 	});
-	
+
 	require('load-grunt-tasks')(grunt);
-	
+
 	grunt.registerTask('build-watch', ['default', 'watch:src']);
 
 	grunt.registerTask('default', [
