@@ -1,3 +1,6 @@
+/**	A stage onto which views can be pushed.
+ *	@module stage
+ */
 (function(g, factory) {
 	if (typeof define==='function' && define.amd) {
 		define([], factory);
@@ -24,9 +27,21 @@
 			initialized = true;
 		},
 
+		/** Show a view on the stage.
+		 *	@param {Element|View} view		An Element, or a frameworkless View
+		 *	@param {Object} [options]
+		 *	@param {Object} [options.animation]		The name of an animation to use.
+		 *	@param {Object} [options.duration=500]	Animation duration, in milliseconds.
+		 *	@param {Function} callback		Called once the animation has completed
+		 */
 		show : function(view, options, callback) {
 			var el = view.base || view;
 			el = el[0] || el;
+
+			if (typeof options==='function') {
+				callback = options;
+				options = null;
+			}
 
 			if (!initialized || !view || !el) return false;
 
@@ -42,6 +57,12 @@
 			return true;
 		},
 
+		/** Hide the given view from the stage. Only has an effect if the view is active.
+		 *	@param {Object} [options]
+		 *	@param {Object} [options.animation]		The name of an animation to use.
+		 *	@param {Object} [options.duration=500]	Animation duration, in milliseconds.
+		 *	@param {Element|View} view		An Element, or a frameworkless View
+		 */
 		hide : function(options, view) {
 			var cur;
 			if (!view) {

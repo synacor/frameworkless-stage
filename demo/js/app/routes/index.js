@@ -1,6 +1,5 @@
 define([
-	'view',
-	'stage',
+	'view', 'stage',
 	'text!templates/index.html'
 ], function(view, stage, tpl) {
 	return {

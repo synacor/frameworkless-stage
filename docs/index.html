@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Frameworkless Stage: Index</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+	<link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<link type="text/css" rel="stylesheet" href="styles/gh-fork-ribbon.css">
+</head>
+
+<body data-page-title="Index">
+	<div class="github-fork-ribbon-wrapper right">
+		<div class="github-fork-ribbon">
+			<a href="https://github.com/synacorinc/frameworkless-stage">Fork me on GitHub</a>
+		</div>
+	</div>
+
+	<div id="main">
+
+		<h1 class="page-title">Index</h1>
+
+		
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section class="index markdown">
+        <article><h1>Frameworkless Stage <a href="https://www.npmjs.org/package/frameworkless-stage"><img src="http://img.shields.io/npm/v/frameworkless-stage.svg?style=flat" alt="NPM Version"></a> <a href="http://bower.io/search/?q=frameworkless-stage"><img src="http://img.shields.io/bower/v/frameworkless-stage.svg?style=flat" alt="Bower Version"></a></h1><blockquote>
+<p>Transition those views to the stage.</p>
+</blockquote>
+<p><a href="https://travis-ci.org/synacorinc/frameworkless-stage"><img src="https://img.shields.io/travis/synacorinc/frameworkless-stage.svg?style=flat&amp;branch=master" alt="Build Status"></a>
+<a href="https://david-dm.org/synacorinc/frameworkless-stage"><img src="http://img.shields.io/david/synacorinc/frameworkless-stage.svg?style=flat" alt="Dependency Status"></a>
+<a href="https://david-dm.org/synacorinc/frameworkless-stage#info=devDependencies"><img src="http://img.shields.io/david/dev/synacorinc/frameworkless-stage.svg?style=flat" alt="devDependency Status"></a></p>
+<h2>Use a Package Manager</h2><p><strong>bower:</strong></p>
+<pre class="prettyprint source lang-bash"><code>bower install frameworkless-stage
+# copy the stuff you want
+cp bower_components/frameworkless-stage/dist/stage.js src/lib
+cp bower_components/frameworkless-stage/dist/less/stage.less src/less/lib</code></pre><p><strong>npm:</strong></p>
+<pre class="prettyprint source lang-bash"><code>npm install frameworkless-stage
+# copy the stuff you want
+cp node_modules/frameworkless-stage/dist/stage.js src/lib
+cp node_modules/frameworkless-stage/dist/less/stage.less src/less/lib</code></pre><hr>
+<h2>Use the Source</h2><p>Get started right away, so you can disassemble and play around at your leisure.</p>
+<pre class="prettyprint source lang-bash"><code># Clone frameworkless-stage
+git clone git@github.com:synacorinc/frameworkless-stage.git
+
+# Install development dependencies
+npm install
+
+# Build the library
+npm run-script build      # or just `grunt` if you have grunt-cli installed globally
+
+# Check out the demo
+PORT=8080 npm start       # this just does `node server.js`</code></pre><hr>
+<h2>Quick Repo Tour</h2><ul>
+<li><code>/src</code> is where the source code lives</li>
+<li><code>/dist</code> is the built library</li>
+<li><code>/demo</code> is a simple demo, using <a href="http://requirejs.org">requirejs</a></li>
+</ul>
+<hr>
+<h2>Usage</h2><pre class="prettyprint source lang-JavaScript"><code>var stage = require('stage');
+
+// stage views into &lt;body>:
+stage.init(document.body);
+
+// A view can just be a DOM node:
+var view = document.createElement('div');
+view.innerHTML = '&lt;h1>Hello, world!&lt;/h1>';
+
+// Push the view onto the stage:
+stage.show(view, {
+    animation : 'fade',
+    duration : 500
+}, function() {
+
+    // add some content to the view after it has been shown:
+    var more = document.createElement('p');
+    more.textContent = 'I am visible now!';
+    view.appendChild(more);
+
+});</code></pre><hr>
+<h2>Usage with <code>frameworkless-view</code></h2><p><strong>Setup:</strong></p>
+<pre class="prettyprint source lang-JavaScript"><code>define(['stage'], function(stage) {
+    stage.init(document.body);
+});</code></pre><p><strong>In a route:</strong></p>
+<pre class="prettyprint source lang-JavaScript"><code>define(['view', 'stage'], function(view, stage) {
+    return view({
+        template : '&lt;h1>Hello, world!&lt;/h1>',
+
+        load : function() {
+            // push the view-presenter onto the stage:
+            stage.show(this);
+        }
+    });
+});</code></pre></article>
+    </section>
+
+
+
+
+
+
+	</div>
+
+	<a class="menuLink">Menu</a>
+
+	<nav>
+		<h2><a href="index.html">Overview</a></h2><div class="nav-modules"><h3>Modules</h3><ul><li title="module:stage"><a href="module-stage.html">stage</a></li><div class="navinner nav-methods"><h4>Methods</h4><ul><li title="module:stage.hide"><a href="module-stage.html#.hide">hide</a></li><li title="module:stage.init"><a href="module-stage.html#.init">init</a></li><li title="module:stage.show"><a href="module-stage.html#.show">show</a></li></ul></div></ul>
+	</nav>
+
+	<footer>
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha13</a> on Wed Jan 07 2015 13:56:04 GMT-0500 (EST)
+	</footer>
+
+	<script src="scripts/prettify/prettify.js"></script>
+	<script src="scripts/prettify/lang-css.js"></script>
+	<script src="scripts/enhancements.js"> </script>
+</body>
+</html>
