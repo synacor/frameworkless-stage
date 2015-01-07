@@ -6,6 +6,4 @@ require.config({
 	}
 });
 
-define(['app/main'], function(main) {
-	window.app = main;
-});
+define(['app/main'], {});

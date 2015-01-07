@@ -1,21 +1,11 @@
-define(
-	[
-		'util',
-		'events',
-		'app/routes',
-		'stage'
-	], function(util, events, routes, stage) {
-	var app = events();
-	
-	app.on('init', routes.init);
-	
-	routes.on('route', function(e) {
-		console.log('routed to '+e.url+' ('+e.rawUrl+')');
-	});
-	
+define(['stage', 'app/routes'], function(stage, routes) {
 	stage.init({
 		container: '#main'
 	});
-	
-	return app.emit('init');
+	routes.on('route', function(e) {
+		[].forEach.call(document.querySelectorAll('a[href]'), function(n) {
+			n.classList[n.getAttribute('href')===e.url ? 'add' : 'remove']('current');
+		});
+	});
+	routes.init();
 });

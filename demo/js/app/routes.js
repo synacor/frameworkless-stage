@@ -1,54 +1,43 @@
 define([
 	'util', 'router', 'events',
 	'./routes/index',
-	'./routes/1',
-	'./routes/2',
-	'./routes/3',
-	'./routes/4',
-	'./routes/5',
-	'./routes/6',
-	'./routes/7',
-	'./routes/8',
-	'./routes/9',
-	'./routes/10',
-	'./routes/11',
-	'./routes/12',
-	'./routes/13',
-	'./routes/14',
-	'./routes/15',
-	'./routes/16',
-	'./routes/17'
 ], function(util, router, events) {
 	var routes = router();
-	events.mixin(routes);
-	
-	// Automatically add any routes
+
 	for (var i=3; i<arguments.length; i++) {
 		routes.get(arguments[i].url, arguments[i]);
 	}
-	
+
 	routes.init = function(path) {
+		// If a <base href="/" /> is present, have the router account for it:
 		var base = document.getElementsByTagName('base')[0];
 		if (base && base.href) {
 			routes.setBaseUrl(base.getAttribute('href'));
+			//console.log('Using baseUrl: ' + routes.baseUrl);
 		}
-		
+
+		// Hook up links delegation to the router:
 		document.body.addEventListener('createTouch' in document ? 'touchstart' : 'click', linkHandler);
-		routes.route(path || location.pathname || location.hash || '/', true, false);
+
+		// Initialize the router with the page's current URL,
+		// without adding a history entry and taking any baseUrl into account:
+		routes.route( (path || location.pathname || location.hash || '/').replace(/(?:^(\/)#\/|\/$)/g, '$1'), true, false);
 	};
-	
+
 	// Automatically route to pages
 	function linkHandler(e) {
 		var t=e.target, href;
 		do {
 			href = t.nodeName==='A' && t.getAttribute('href');
-			if (href && href.match(/^\/#/g)) {
-				routes.route(href.replace(/^\/#\/*/g,'/'));
-				e.preventDefault();
-				return false;
+			if (href && href.match(/^\/(#!?)?/g)) {
+				if (routes.route(href.replace(/(?:^(\/)(#!?)?\/*|\/+$)/g,'$1'))===true) {
+					e.preventDefault();
+					return false;
+				}
+				return;
 			}
 		} while (t=t.parentNode);
 	}
-	
+
 	return routes;
 });

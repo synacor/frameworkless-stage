@@ -1,47 +1,27 @@
 define([
-	'util',
-	'view', 
+	'view',
 	'stage',
-	'../modules/spinner',
 	'text!templates/index.html'
-], function(util, view, stage, spinner, template) {
+], function(view, stage, tpl) {
+	return {
+		isDefault : true,
+		url : '/:animation',
 
-	var route = {
-		url : '/',
-		
-		events : {
-			'click #submit' : function() {
-				page.view.base.find('form').submit();
-			},
-			'click #reset' : function() {
-				page.view.base.find('form').reset();
-			}
-		},
-		
-		load : function(params, router) {
-			if (!this.view) {
-				// initialize a view:
-				this.view = new view(template);
-				
-				// wire up event handlers:
-				//this.view.hookEvents(this.events);
-			}
-			spinner.toggleSpinner('#main');
-			stage.show(this.view, {
-				animation: 'fade',
-				duration: 500,
-				timingFunction: 'ease'
+		load : function(params) {
+			var v = view(tpl, 'demo').template({
+				params : params
 			});
-			setTimeout(function() {
-				spinner.toggleSpinner('#main');
-			}, 500);
-			
-		},
-		
-		unload : function() {
-			// remove view from DOM:
-		}
-	}
 
-	return route;
+			// show some color to make the view change more obvious
+			v.$$('h1').style.color = '#' + parseInt('111111' + params.animation, 36).toString(16).split('').reverse().join('').substring(0,6);
+
+			stage.show(v, {
+				animation : params.animation || 'fade',
+				duration : Math.round(params.$query.duration) || 300
+			}, function() {
+				// done
+				v.$$('.page').classList.add('showing');
+			});
+		}
+	};
 });
