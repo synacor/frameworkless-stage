@@ -28,10 +28,10 @@
   opacity: 0;
 }
 .stage > div.slide-up-out {
-  transform: translateY(-100%);
+  transform: translateY(100%);
 }
 .stage > div.slide-down-out {
-  transform: translateY(100%);
+  transform: translateY(-100%);
 }
 .stage > div.slide-left-out {
   transform: translateX(-100%);
