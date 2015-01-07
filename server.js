@@ -7,8 +7,8 @@ var express = require('express'),
 app.use(compression());
 
 app.use(function(req, res, next) {
-	if (!req.url.match(/(^\/?(static|docs|dist|demo)\/|\.[a-z]+$)/g)) {
-		req.url = '/';
+	if (req.url.match(/^\/?demo(\/|$)/g) && !req.url.match(/\.[a-z]+(\?.*)?$/g)) {
+		req.url = '/demo/';
 	}
 	next();
 });
