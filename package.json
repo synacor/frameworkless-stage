@@ -1,6 +1,6 @@
 {
   "name": "frameworkless-stage",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Push views onto a stage, with optional view transitions.",
   "main": "dist/stage.js",
   "scripts": {
