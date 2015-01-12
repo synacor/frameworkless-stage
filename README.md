@@ -1,7 +1,7 @@
 Frameworkless Stage [![NPM Version](http://img.shields.io/npm/v/frameworkless-stage.svg?style=flat)](https://www.npmjs.org/package/frameworkless-stage) [![Bower Version](http://img.shields.io/bower/v/frameworkless-stage.svg?style=flat)](http://bower.io/search/?q=frameworkless-stage)
 =============
 
-Transition those views to the stage.
+Transition those [views](https://github.com/synacorinc/frameworkless-view) to the stage.
 
 **[View Demo](http://frameworkless-stage.paasive.apla.dev.opal.synacor.com/demo/)**
 
