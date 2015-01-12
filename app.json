@@ -1,0 +1,9 @@
+{
+	"name": "frameworkless-stage",
+	"description": "Push views onto a stage, with optional view transitions.",
+	"repository": "https://github.com/synacorinc/frameworkless-stage",
+	"keywords": ["frameworkless", "stage", "mvc"],
+	"env": {
+		"NPM_CONFIG_PRODUCTION": "false"
+	}
+}
