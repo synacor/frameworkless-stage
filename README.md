@@ -126,3 +126,12 @@ define(['view', 'stage'], function(view, stage) {
 	});
 });
 ```
+
+
+---
+
+
+License
+-------
+
+BSD

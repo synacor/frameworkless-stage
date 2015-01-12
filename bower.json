@@ -24,7 +24,7 @@
     "src",
     "demo"
   ],
-  "license": "Proprietary",
+  "license": "BSD",
   "devDependencies": {},
   "dependencies": {}
 }
