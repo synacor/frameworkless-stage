@@ -3,7 +3,7 @@ Frameworkless Stage [![NPM Version](http://img.shields.io/npm/v/frameworkless-st
 
 Transition those [views](https://github.com/synacorinc/frameworkless-view) to the stage.
 
-**[View Demo](http://frameworkless-stage.paasive.apla.dev.opal.synacor.com/demo/)**
+**[View Demo](http://frameworkless-stage.herokuapp.com/demo)**
 
 [![Build Status](https://img.shields.io/travis/synacorinc/frameworkless-stage.svg?style=flat&branch=master)](https://travis-ci.org/synacorinc/frameworkless-stage)
 [![Dependency Status](http://img.shields.io/david/synacorinc/frameworkless-stage.svg?style=flat)](https://david-dm.org/synacorinc/frameworkless-stage)
