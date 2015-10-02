@@ -5,3 +5,7 @@ jsdoc-template
 server.js
 src
 demo
+docs
+.travis.yml
+app.json
+bower.json
