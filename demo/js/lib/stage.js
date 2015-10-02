@@ -124,7 +124,7 @@
 			if (opt && opt.animation) {
 				return handleAnimation(current, opt.animation, false, callback);
 			}
-			removeClass(current.base, 'staged');
+			removeClass(current.base || current, 'staged');
 		}
 
 		call(callback);
