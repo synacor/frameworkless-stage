@@ -1,13 +1,13 @@
 Frameworkless Stage [![NPM Version](http://img.shields.io/npm/v/frameworkless-stage.svg?style=flat)](https://www.npmjs.org/package/frameworkless-stage) [![Bower Version](http://img.shields.io/bower/v/frameworkless-stage.svg?style=flat)](http://bower.io/search/?q=frameworkless-stage)
 =============
 
-Transition those [views](https://github.com/synacorinc/frameworkless-view) to the stage.
+Transition those [views](https://github.com/synacor/frameworkless-view) to the stage.
 
 **[View Demo](http://frameworkless-stage.herokuapp.com/demo)**
 
-[![Build Status](https://img.shields.io/travis/synacorinc/frameworkless-stage.svg?style=flat&branch=master)](https://travis-ci.org/synacorinc/frameworkless-stage)
-[![Dependency Status](http://img.shields.io/david/synacorinc/frameworkless-stage.svg?style=flat)](https://david-dm.org/synacorinc/frameworkless-stage)
-[![devDependency Status](http://img.shields.io/david/dev/synacorinc/frameworkless-stage.svg?style=flat)](https://david-dm.org/synacorinc/frameworkless-stage#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/synacor/frameworkless-stage.svg?style=flat&branch=master)](https://travis-ci.org/synacor/frameworkless-stage)
+[![Dependency Status](http://img.shields.io/david/synacor/frameworkless-stage.svg?style=flat)](https://david-dm.org/synacor/frameworkless-stage)
+[![devDependency Status](http://img.shields.io/david/dev/synacor/frameworkless-stage.svg?style=flat)](https://david-dm.org/synacor/frameworkless-stage#info=devDependencies)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
@@ -47,7 +47,7 @@ Get started right away, so you can disassemble and play around at your leisure.
 
 ```bash
 # Clone frameworkless-stage
-git clone git@github.com:synacorinc/frameworkless-stage.git
+git clone git@github.com:synacor/frameworkless-stage.git
 
 # Install development dependencies
 npm install
