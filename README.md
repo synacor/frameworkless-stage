@@ -1,6 +1,8 @@
 Frameworkless Stage [![NPM Version](http://img.shields.io/npm/v/frameworkless-stage.svg?style=flat)](https://www.npmjs.org/package/frameworkless-stage) [![Bower Version](http://img.shields.io/bower/v/frameworkless-stage.svg?style=flat)](http://bower.io/search/?q=frameworkless-stage)
 =============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/synacor/frameworkless-stage.svg)](https://greenkeeper.io/)
+
 Transition those [views](https://github.com/synacor/frameworkless-view) to the stage.
 
 **[View Demo](http://frameworkless-stage.herokuapp.com/demo)**
